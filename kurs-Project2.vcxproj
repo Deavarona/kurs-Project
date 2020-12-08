@@ -141,17 +141,14 @@
   <ItemGroup>
     <ClCompile Include="Calendar.cpp" />
     <ClCompile Include="CalendarCurrentMoment.cpp" />
-    <ClCompile Include="CalendarDate.cpp" />
-    <ClCompile Include="CalendarTime.cpp" />
     <ClCompile Include="File.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Note.cpp" />
+    <ClCompile Include="Tools.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Calendar.h" />
     <ClInclude Include="CalendarCurrentMoment.h" />
-    <ClInclude Include="CalendarDate.h" />
-    <ClInclude Include="CalendarTime.h" />
     <ClInclude Include="File.h" />
     <ClInclude Include="Note.h" />
     <ClInclude Include="Tools.h" />

@@ -1,19 +1,20 @@
 #include "Calendar.h"
+#include "CalendarCurrentMoment.h"
 
 Calendar::Calendar()
 {
+	std::cout << "Дедлайн задачи: " << std::endl;
 	int year = inputYear();
+	setYear(year);
 	int month = inputMonth();
+	setMonth(month);
 	int day = inputDay();
+	setDay(day);
 
 	int hour = inputHour();
-	int minute = inputMinute();
-
-	setMinute(minute);
 	setHour(hour);
-	setDay(day);
-	setMonth(month);
-	setYear(year);
+	int minute = inputMinute();
+	setMinute(minute);
 }
 
 
@@ -77,26 +78,89 @@ std::string Calendar::defineMonth()
 //--------------------
 int Calendar::inputDay()
 {
-	std::cout << "Day: ";
 	int day;
-	std::cin >> day;
+	while (1)
+	{
+		std::cout << "Day: ";
+		day = inputNumber();
+		switch (m_month)
+		{
+		case 1: case 3: case 5: case 7: case 8: case 10: case 12: 
+		{
+			if (day >= 1 && day <= 31)
+			{
+				return day;
+			}
+			else
+			{
+				std::cout << "Логическая ошибка! В месяце " << defineMonth() << " 31 день!" << std::endl;
+			}
+			break;
+		}
+		case 4: case 6: case 9: case 11:
+		{
+			if (day >= 1 && day <= 30)
+			{
+				return day;
+			}
+			else
+			{
+				std::cout << "Логическая ошибка! В месяце " << defineMonth() << " 30 дней!" << std::endl;
+			}
+			break;
+		}
+		case 2:
+		{
+			if (day >= 0)
+			{
+				if (day <= 29 && m_year % 4 == 0 || day <= 28)
+				{
+					return day;
+				}
+			}
+			else
+			{
+				std::cout << "Логическая ошибка! В феврале 28 дней!" << std::endl;
+			}
+		}
+		}
+	}
 	return day;
 }
 
 int Calendar::inputMonth()
 {
-	std::cout << "Month: ";
-	int month;
-	std::cin >> month;
-	return month;
+	while (1)
+	{
+		std::cout << "Month: ";
+		int month = inputNumber();
+		if (month >= 1 && month <= 12)
+		{
+			return month;
+		}
+		else
+		{
+			std::cout << "Логическая ошибка! Введите номер месяца от 1 (янв.) до 12 (дек.)" << std::endl;
+		}
+	}
+	
 }
 
 int Calendar::inputYear()
 {
-	std::cout << "Year: ";
-	int year;
-	std::cin >> year;
-	return year;
+	while (1)
+	{
+		std::cout << "Year: ";
+		int year = inputNumber();
+		if (year >= m_current_year)
+		{
+			return year;
+		}
+		else
+		{
+			std::cout << "Логическая ошибка! Сегодня " << m_current_year << " год." << std::endl;
+		}
+	}
 }
 
 
@@ -128,7 +192,20 @@ int Calendar::getHour()
 //--------------------
 int Calendar::inputMinute()
 {
-	std::cout << "Minute: ";
+	while (1)
+	{
+		std::cout << "Minute: ";
+		int minute = inputNumber();
+		if (minute >= 0 && minute <= 59)
+		{
+			return minute;
+		}
+		else
+		{
+			std::cout << "Логическая ошибка! В часах 60 минут. Введите количество минут от 0 до 59!" << std::endl;
+		}
+	}
+	
 	int minute;
 	std::cin >> minute;
 	return minute;
@@ -136,8 +213,17 @@ int Calendar::inputMinute()
 
 int Calendar::inputHour()
 {
-	std::cout << "Hour: ";
-	int hour;
-	std::cin >> hour;
-	return hour;
+	while (1)
+	{
+		std::cout << "Hour: ";
+		int hour = inputNumber();
+		if (hour >= 0 && hour <= 23)
+		{
+			return hour;
+		}
+		else
+		{
+			std::cout << "Логическая ошибка! В сутках 24 часа. Введите количество часов от 0 до 23!" << std::endl;
+		}
+	}
 }

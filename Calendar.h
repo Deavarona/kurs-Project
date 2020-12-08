@@ -1,8 +1,8 @@
 #ifndef CALENDAR_H
 #define CALENDAR_H
-#include "Note.h"
+#include "CalendarCurrentMoment.h"
 
-class Calendar:public Note
+class Calendar:public CalendarCurrentMoment
 {
 public:
 	Calendar();

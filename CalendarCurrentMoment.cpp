@@ -1,6 +1,6 @@
 #include "CalendarCurrentMoment.h"
 
-void CalendarCurrentMoment::setCurrentMoment()
+CalendarCurrentMoment::CalendarCurrentMoment()
 {
 	time_t right_now = time(0);
 	tm right_now_struct;

@@ -6,4 +6,6 @@
 const std::string UNKNOWN_STRING = "UNKNOWN";
 const int UNKNOWN_VALUE = -1;
 
+int inputNumber();
+
 #endif TOOLS_H
