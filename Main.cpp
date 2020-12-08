@@ -1,6 +1,7 @@
 #include <iostream>
 #include <Windows.h>
 #include "Note.h"
+#include "Calendar.h"
 
 int main()
 {
@@ -8,5 +9,5 @@ int main()
 	SetConsoleOutputCP(1251);
 
 
-	Note myfirstnote;
+	Calendar myfirstcalendarnote;
 }
