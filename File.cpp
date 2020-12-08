@@ -22,4 +22,5 @@ int defineNumberOfLinesAtFile(std::string name_of_file)
 		number_of_lines++;
 	}
 	return number_of_lines;
+
 }
