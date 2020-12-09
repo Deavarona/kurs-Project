@@ -5,12 +5,16 @@
 #include "Note.h"
 #include <string>
 #include "Calendar.h"
+#include <vector>
 
 void checkFileExisting(std::string name_of_file); 
 int defineNumberOfLinesAtFile(std::string name_of_file);
 
-void writeToFoleNoteWithoutDeadline(std::string name_of_file, Note& note);
+void writeToFile(std::string name_of_file, Note& note);
 void showFileContent(std::string name_of_file);
-void writeToFileNoteWithDeadline(std::string name_of_file, Calendar& note);
+void writeToFile(std::string name_of_file, Calendar& note);
+
+void readFromFile(std::string name_of_file, std::vector<Note>& note, int number_of_notes);
+void readFromFile(std::string name_of_file, std::vector<Calendar>&note, int number_of_notes);
 
 #endif

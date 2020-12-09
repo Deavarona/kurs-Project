@@ -40,6 +40,9 @@ public:
 	//----------
 	int inputMinute();
 	int inputHour();
+
+public:
+	void createNote();
 };
 
 #endif

@@ -2,13 +2,7 @@
 
 Note::Note()
 {
-	std::cout << "Имя заметки: ";
-	std::string note_name = inputString();
-	setNoteName(note_name);
-
-	std::cout << "Описание: ";
-	std::string note_content = inputString();
-	setNoteContent(note_content);
+	
 }
 
 std::string Note::inputString()

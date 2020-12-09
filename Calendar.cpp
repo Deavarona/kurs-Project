@@ -3,6 +3,21 @@
 
 Calendar::Calendar()
 {
+	
+}
+
+void Calendar::createNote()
+{
+	std::cout << "Имя заметки: ";
+	std::string name_of_note;
+	std::getline(std::cin, name_of_note);
+	setNoteName(name_of_note);
+
+	std::cout << "Описание: ";
+	std::string note_content;
+	std::getline(std::cin, note_content);
+	setNoteContent(note_content);
+
 	std::cout << "Дедлайн задачи: " << std::endl;
 	int year = inputYear();
 	setYear(year);
@@ -16,7 +31,6 @@ Calendar::Calendar()
 	int minute = inputMinute();
 	setMinute(minute);
 }
-
 
 //----------СЕТТЕРЫ----------
 void Calendar::setDay(int day)

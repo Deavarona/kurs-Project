@@ -24,6 +24,7 @@ public:
 	std::string getNoteContent();
 	bool getStatus();
 	int getPriority();
+	virtual void createNote() = 0;
 };
 
 #endif
