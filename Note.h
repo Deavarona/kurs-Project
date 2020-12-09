@@ -12,8 +12,10 @@ private:
 	int m_priority=UNKNOWN_VALUE; //Приоритет
 
 public:
-	Note();
-	std::string inputString();
+	Note(); //Конструктор
+	std::string inputString(); //Ввод строки
+	virtual void createNote() = 0; //Создание заметки
+
 	//-----Сеттеры-----
 	void setNoteName(std::string note_name);
 	void setNoteContent(std::string note_content);
@@ -24,7 +26,6 @@ public:
 	std::string getNoteContent();
 	bool getStatus();
 	int getPriority();
-	virtual void createNote() = 0;
 };
 
 #endif

@@ -19,7 +19,7 @@ int main()
 	{
 		std::cout << note.at(i).getNoteName() << " " << note.at(i).getNoteContent() << std::endl;
 		std::cout << note.at(i).getStatus() << " " << note.at(i).getPriority() << std::endl;
-		std::cout << note.at(i).getYear() << "/" << note.at(i).getMonth() << note.at(i).getDay() << " ";
+		std::cout << note.at(i).getYear() << "/" << note.at(i).getMonth() << "/" << note.at(i).getDay() << " ";
 		std::cout << note.at(i).getHour() << ":" << note.at(i).getMinute() << std::endl;
 		std::cout << std::endl;
 	}

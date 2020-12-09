@@ -9,13 +9,11 @@ Calendar::Calendar()
 void Calendar::createNote()
 {
 	std::cout << "Имя заметки: ";
-	std::string name_of_note;
-	std::getline(std::cin, name_of_note);
+	std::string name_of_note = inputString();
 	setNoteName(name_of_note);
 
 	std::cout << "Описание: ";
-	std::string note_content;
-	std::getline(std::cin, note_content);
+	std::string note_content = inputString();
 	setNoteContent(note_content);
 
 	std::cout << "Дедлайн задачи: " << std::endl;
