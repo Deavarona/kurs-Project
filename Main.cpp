@@ -12,5 +12,7 @@ int main()
 
 	Note mynote;
 	writeToFoleNoteWithoutDeadline(MAIN_FILE_NAME, mynote);
+	Calendar note;
+	writeToFileNoteWithDeadline(MAIN_FILE_NAME, note);
 	showFileContent(MAIN_FILE_NAME);
 }
