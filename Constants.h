@@ -1,6 +1,7 @@
 #ifndef CONSTANTS_H
 #define CONSTANTS_H
 #include <iostream>
+#include <vector>
 
 const int DEFAULT_VALUE = -1; //Присваивается данное значение, если оно не было определено
 const std::string DEFAULT_VALUE_STRING = "UNKNOWN"; //Присваивается данное значение, если оно не было определено

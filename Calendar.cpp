@@ -80,7 +80,7 @@ int Calendar::getYear()
 
 //--------------------
 
-std::string Calendar::defineMonth()
+std::string Calendar::defineNameOfMonth()
 {
 	std::string month;
 	switch (m_month)
@@ -157,7 +157,7 @@ int Calendar::inputDay()
 			}
 			if (logical_error == 2)
 			{
-				std::cout << "В месяце" << defineMonth() << " 30 дней!" << std::endl;
+				std::cout << "В месяце" << defineNameOfMonth() << " 30 дней!" << std::endl;
 			}
 			if (logical_error == 3)
 			{
@@ -198,7 +198,7 @@ int Calendar::inputMonth()
 			}
 			if (logical_error == 2)
 			{
-				std::cout << "На данный момент месяц" << defineMonth() << "." << std::endl;
+				std::cout << "На данный момент месяц" << defineNameOfMonth() << "." << std::endl;
 				std::cout << "Пожалуйста, не создавайте заведомо просроченные задачи." << std::endl;
 			}
 		}
@@ -210,7 +210,7 @@ int Calendar::inputYear()
 	int year;
 	while (1)
 	{
-		std::cout << "Year: ";
+		std::cout << "Год: ";
 		try
 		{
 			year = inputIntegerNumber();
@@ -218,6 +218,7 @@ int Calendar::inputYear()
 			{
 				throw 1;
 			}
+			return year;
 		}
 		catch (const int logical_error)
 		{
@@ -319,7 +320,7 @@ int Calendar::inputHour()
 
 //---------- Ф А Й Л Ы -----------
 
-void Calendar::writeToFile(std::string name_of_file)
+void Calendar::saveNoteInFile(std::string name_of_file)
 {
 	try
 	{
@@ -334,8 +335,8 @@ void Calendar::writeToFile(std::string name_of_file)
 				throw 1;
 			}
 		}
-		file << m_note_name << SPECIAL_SYMBOL << " " << m_note_content << SPECIAL_SYMBOL << " " << m_status << " " << m_priority << " " << m_year << " " << m_month << " " <<
-			m_month << " " << m_day << " " << m_hour << " " << m_minute << std::endl;
+		file << m_note_name << SPECIAL_SYMBOL << " " << m_note_content << SPECIAL_SYMBOL << " " << m_status << " " << m_priority << " " 
+			<< m_year << " " << m_month << " " << m_day << " " << m_hour << " " << m_minute << std::endl;
 		file.close();
 	}
 	catch (const int file_error)
@@ -350,11 +351,11 @@ void Calendar::writeToFile(std::string name_of_file)
 		}
 	}
 }
-void Calendar::readFromFile(std::string name_of_file, std::vector<Calendar>&note, int number_of_notes)
+void Calendar::readAllNotesFromFile(std::string name_of_file, std::vector <Calendar>&notes, int number_of_notes)
 {
 	try
 	{
-		std::ifstream file(name_of_file, std::ios::app);
+		std::ifstream file(name_of_file, std::ios::in);
 		if (!file.is_open())
 		{
 			if (!isFileExist(DATABASE_FILE_NAME))
@@ -365,18 +366,21 @@ void Calendar::readFromFile(std::string name_of_file, std::vector<Calendar>&note
 				throw 1;
 			}
 		}
-
+		std::string trash;
+		//std::cout << "Количество записей: " << number_of_notes << std::endl;
 		for (int i = 0; i < number_of_notes; i++)
 		{
-			std::getline(file, note.at(i).m_note_name, SPECIAL_SYMBOL);
-			std::getline(file, note.at(i).m_note_content, SPECIAL_SYMBOL);
-			file >> note.at(i).m_status;
-			file >> note.at(i).m_priority;
-			file >> note.at(i).m_year;
-			file >> note.at(i).m_month;
-			file >> note.at(i).m_day;
-			file >> note.at(i).m_hour;
-			file >> note.at(i).m_minute;
+			std::getline(file, notes.at(i).m_note_name, '\'');
+			std::getline(file, trash, ' ');
+			std::getline(file, notes.at(i).m_note_content, SPECIAL_SYMBOL);
+			file >> notes.at(i).m_status;
+			file >> notes.at(i).m_priority;
+			file >> notes.at(i).m_year;
+			file >> notes.at(i).m_month;
+			file >> notes.at(i).m_day;
+			file >> notes.at(i).m_hour;
+			file >> notes.at(i).m_minute;
+			std::getline(file, trash, '\n');
 		}
 
 		file.close();
@@ -391,5 +395,33 @@ void Calendar::readFromFile(std::string name_of_file, std::vector<Calendar>&note
 			std::cout << "Возникли неполадки... Файл не может быть открыт." << std::endl;
 			std::cout << "Повторите попытку" << std::endl;
 		}
+	}
+}
+
+void Calendar::showNote(Calendar&note)
+{
+	std::cout << "Имя заметки: " << note.m_note_name << std::endl;
+	std::cout << "Описание: " << note.m_note_content << std::endl;
+	if (note.m_status)
+	{
+		std::cout << "Статус: выполнена." << std::endl;
+	}
+	else
+	{
+		std::cout << "Приоритет: " << note.m_priority << std::endl;
+	}
+	if (note.m_year != DEFAULT_VALUE)
+	{
+		std::cout << "Дедлайн: " << note.m_year << "/" << note.m_month << "/" << note.m_day << " " 
+			<< note.m_hour << ":" << note.m_minute << std::endl;
+	}
+}
+
+void Calendar::showAllNotes(std::vector <Calendar>& note, int number_of_notes)
+{
+	for (int i = 0; i < number_of_notes; i++)
+	{
+		note.at(i).showNote(note.at(i));
+		std::cout << std::endl;
 	}
 }

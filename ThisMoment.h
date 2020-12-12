@@ -3,7 +3,7 @@
 #include "Notebook.h"
 #include <ctime>
 
-class ThisMoment : public Notebook
+class ThisMoment :public Notebook
 {
 protected:
 	int m_current_day; //Текущий день

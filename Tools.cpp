@@ -19,3 +19,13 @@ int inputIntegerNumber()
 		}
 	}
 }
+
+void setSettings()
+{
+	SetConsoleCP(1251);
+	SetConsoleOutputCP(1251);
+	if (!isFileExist(DATABASE_FILE_NAME))
+	{
+		createFile(DATABASE_FILE_NAME);
+	}
+}

@@ -1,17 +1,13 @@
 #ifndef CALENDAR_H
 #define CALENDAR_H
-#include "ThisMoment.h"
-#include "Constants.h"
-#include "Tools.h"
 #include <conio.h>
+#include "ThisMoment.h"
+#include "Tools.h"
 #include "File.h"
-#include <vector>
 
-class Calendar :public ThisMoment
+class Calendar: public ThisMoment
 {
 public:
-	//Calendar(); //Конструктор
-	
 	//-----ДАТА-----
 private:
 	int m_day = DEFAULT_VALUE; //День срока выполнения задачи
@@ -27,7 +23,7 @@ public:
 	int getMonth();
 	int getYear();
 	//----------
-	std::string defineMonth(); //Возвращает сокращенное название месяца по его номеру
+	std::string defineNameOfMonth(); //Возвращает сокращенное название месяца по его номеру
 	int inputDay(); //Ввод дня срока выполнения задачи
 	int inputMonth(); //Ввод месяца срока выполнения задачи
 	int inputYear(); //Ввод года срока выполнения задачи
@@ -49,8 +45,10 @@ public:
 
 public:
 	void createNote(); //Создание заметки (определение виртуальной функции)
-	void writeToFile(std::string name_of_file); //Запись задачи в файл (определение виртуальной функции)
-	void readFromFile(std::string name_of_file, std::vector<Calendar>&note, int number_of_notes); //Считывание задачи из файла (определение виртуальной функции)
+	void saveNoteInFile(std::string name_of_file); //Запись задачи в файл
+	void readAllNotesFromFile(std::string name_of_file, std::vector <Calendar>&notes, int number_of_notes); //Считывание всех задач из файла
+	void showNote(Calendar&note); //Вывести заметку на консоль
+	void showAllNotes(std::vector <Calendar>& note, int number_of_notes); //Вывести все заметки на консоль
 };
 
 #endif
