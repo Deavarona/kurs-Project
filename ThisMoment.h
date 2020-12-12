@@ -6,6 +6,8 @@
 class ThisMoment :public Notebook
 {
 protected:
+	time_t right_now;
+	tm right_now_struct;
 	int m_current_day; //Текущий день
 	int m_current_month; //Текущий месяц
 	int m_current_year; //Текущий год

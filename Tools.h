@@ -1,11 +1,21 @@
 #ifndef TOOLS_H
 #define TOOLS_H
-#include <iostream>
-#include <Windows.h> //Для установка русского языка
+#include "Calendar.h"
+#include <Windows.h>
 #include "File.h"
 #include "Constants.h"
+#include <conio.h>
 
-void setSettings();
-int inputIntegerNumber();
+void setSettings(); //Начальные настройки
+int inputIntegerNumber(); //Ввод целого числа
+bool isActionConfirmed(std::string message); //Подтверждение действия
+
+void showMainMenuInterface();
+void mainMenu();
+void addNote();
+void menuOfShowingTasks();
+void showMenuOfShowingTasksInterface();
+void editNote();
+void showEditionMenu();
 
 #endif

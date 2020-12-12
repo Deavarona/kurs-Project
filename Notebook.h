@@ -10,10 +10,9 @@ protected:
 	std::string m_note_name = DEFAULT_VALUE_STRING; //Название заметки
 	std::string m_note_content = DEFAULT_VALUE_STRING; //Описание заметки
 	bool m_status = false; //Статус (выполнено/не выполнено)
-	int m_priority = DEFAULT_VALUE; //Приоритет
+	int m_priority = 0; //Приоритет
 
 public:
-	//Notebook(); //Конструктор
 	std::string inputString(); //Ввод строки
 	virtual void createNote() = 0; //Создание заметки
 

@@ -9,5 +9,10 @@ const std::string DEFAULT_VALUE_STRING = "UNKNOWN"; //Присваивается данное значе
 const char SPECIAL_SYMBOL = '\''; //Специальный символ ' (используется при работе с файлом (запись/считывание))
 //----------
 const std::string DATABASE_FILE_NAME = "Organaiser_Database.txt"; //Имя основного файла с данными задач
+//----------
+const std::string LINE_MENU = "==================================================";
+//----------
+const std::string MESSAGE_EXIT = "Вы действительно хотите выйти?";
+const std::string MESSAGE_SAVE = "Сохранить?";
 
 #endif

@@ -10,13 +10,11 @@ bool isFileExist(std::string name_of_file)
 	file.close();
 	return true;
 }
-
 void createFile(std::string name_of_file)
 {
 	std::ofstream new_file(name_of_file);
 	new_file.close();
 }
-
 int defineNumberOfNotesInFile(std::string name_of_file)
 {
 	std::ifstream file(name_of_file, std::ios::in);
@@ -29,7 +27,6 @@ int defineNumberOfNotesInFile(std::string name_of_file)
 	file.close();
 	return number_of_lines;
 }
-
 void showFileContent(std::string name_of_file)
 {
 	std::string temp;

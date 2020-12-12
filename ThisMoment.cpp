@@ -4,11 +4,10 @@ ThisMoment::ThisMoment()
 {
 	defineThisMoment();
 }
-
 void ThisMoment::defineThisMoment()
 {
-	time_t right_now = time(NULL);
-	tm right_now_struct;
+	right_now = time(NULL);
+	right_now_struct;
 	localtime_s(&right_now_struct, &right_now);
 
 	m_current_day = right_now_struct.tm_mday;

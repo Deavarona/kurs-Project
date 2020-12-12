@@ -23,7 +23,7 @@ public:
 	int getMonth();
 	int getYear();
 	//----------
-	std::string defineNameOfMonth(); //Возвращает сокращенное название месяца по его номеру
+	std::string defineNameOfMonth(int month_number); //Возвращает сокращенное название месяца по его номеру
 	int inputDay(); //Ввод дня срока выполнения задачи
 	int inputMonth(); //Ввод месяца срока выполнения задачи
 	int inputYear(); //Ввод года срока выполнения задачи
@@ -45,10 +45,30 @@ public:
 
 public:
 	void createNote(); //Создание заметки (определение виртуальной функции)
+	int calculatePriority();
+	int chooseTheNoteNumber(std::vector <Calendar>& note, int number_of_notes);
+	double timeBeforeDeadline();
+
 	void saveNoteInFile(std::string name_of_file); //Запись задачи в файл
 	void readAllNotesFromFile(std::string name_of_file, std::vector <Calendar>&notes, int number_of_notes); //Считывание всех задач из файла
+	void rewriteFile(std::string name_of_file, std::vector<Calendar>& notes, int number_of_notes);
+
 	void showNote(Calendar&note); //Вывести заметку на консоль
 	void showAllNotes(std::vector <Calendar>& note, int number_of_notes); //Вывести все заметки на консоль
+	void showNotesWithDeadline(std::vector <Calendar>& note, int number_of_notes); //Вывести все заметки с дедлайном
+	void showUnfulfilledNotes(std::vector<Calendar>& note, int number_of_notes); //Вывести невыполненные задачи
+	void showNotesThisYear(std::vector<Calendar>& note, int number_of_notes);
+	void showNotesThisMonth(std::vector<Calendar>& note, int number_of_notes);
+	void showNotesThisDay(std::vector<Calendar>& note, int number_of_notes);
+
+	void editNoteName(Calendar&note);
+	void editNoteContent(Calendar& note);
+	void editNoteDeadline(Calendar& note);
+	void editNoteStatus(Calendar& note);
+	void editNotePriority(Calendar& note);
+	void deleteNote(std::vector<Calendar>& note, int note_number, int&number_of_notes);
 };
+
+void addNote();
 
 #endif
