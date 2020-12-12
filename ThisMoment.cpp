@@ -1,8 +1,13 @@
-#include "CalendarCurrentMoment.h"
+#include "ThisMoment.h"
 
-CalendarCurrentMoment::CalendarCurrentMoment()
+ThisMoment::ThisMoment()
 {
-	time_t right_now = time(0);
+	defineThisMoment();
+}
+
+void ThisMoment::defineThisMoment()
+{
+	time_t right_now = time(NULL);
 	tm right_now_struct;
 	localtime_s(&right_now_struct, &right_now);
 

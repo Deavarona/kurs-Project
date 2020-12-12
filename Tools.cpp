@@ -1,6 +1,6 @@
 #include "Tools.h"
 
-int inputNumber()
+int inputIntegerNumber()
 {
 	int number;
 	while (1)

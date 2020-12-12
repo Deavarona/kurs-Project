@@ -1,17 +1,22 @@
 #ifndef CALENDAR_H
 #define CALENDAR_H
-#include "CalendarCurrentMoment.h"
+#include "ThisMoment.h"
+#include "Constants.h"
 #include "Tools.h"
+#include <conio.h>
+#include "File.h"
+#include <vector>
 
-class Calendar:public CalendarCurrentMoment
+class Calendar :public ThisMoment
 {
 public:
-	Calendar();
-
+	//Calendar(); //Конструктор
+	
+	//-----ДАТА-----
 private:
-	int m_day=UNKNOWN_VALUE;
-	int m_month=UNKNOWN_VALUE;
-	int m_year=UNKNOWN_VALUE;
+	int m_day = DEFAULT_VALUE; //День срока выполнения задачи
+	int m_month = DEFAULT_VALUE; //Месяц срока выполнения задачи
+	int m_year = DEFAULT_VALUE; //Год срока выполнения задачи
 public:
 	//-----Сеттеры-----
 	void setDay(int day);
@@ -22,14 +27,15 @@ public:
 	int getMonth();
 	int getYear();
 	//----------
-	std::string defineMonth();
-	int inputDay();
-	int inputMonth();
-	int inputYear();
+	std::string defineMonth(); //Возвращает сокращенное название месяца по его номеру
+	int inputDay(); //Ввод дня срока выполнения задачи
+	int inputMonth(); //Ввод месяца срока выполнения задачи
+	int inputYear(); //Ввод года срока выполнения задачи
 
+	//-----ВРЕМЯ-----
 private:
-	int m_minute=UNKNOWN_VALUE;
-	int m_hour=UNKNOWN_VALUE;
+	int m_minute = DEFAULT_VALUE; //Минута срока выполнения задачи
+	int m_hour = DEFAULT_VALUE; //Час срока выполнения задачи
 public:
 	//-----Сеттеры-----
 	void setMinute(int minute);
@@ -38,11 +44,13 @@ public:
 	int getMinute();
 	int getHour();
 	//----------
-	int inputMinute();
-	int inputHour();
+	int inputMinute(); //Ввод минуты срока выполнения задачи
+	int inputHour(); //Ввод часа срока выполнения задачи
 
 public:
-	void createNote();
+	void createNote(); //Создание заметки (определение виртуальной функции)
+	void writeToFile(std::string name_of_file); //Запись задачи в файл (определение виртуальной функции)
+	void readFromFile(std::string name_of_file, std::vector<Calendar>&note, int number_of_notes); //Считывание задачи из файла (определение виртуальной функции)
 };
 
 #endif
