@@ -104,6 +104,7 @@ void showMenuShowingTasksInterface()
 	std::cout << "\t4. Показать все задачи за выбранный ГОД." << std::endl;
 	std::cout << "\t5. Показать все задачи за выбранный МЕСЯЦ." << std::endl;
 	std::cout << "\t6. Показать все задачи за выбранный ДЕНЬ." << std::endl;
+	std::cout << "\t7. Сортировать по приоритету." << std::endl;
 	std::cout << "\t0 - Вернуться назад." << std::endl;
 	std::cout << LINE_MENU << std::endl;
 }
@@ -126,6 +127,7 @@ void menuShowingTasks()
 		case '4': system("cls"); note.showNotesThisYear(notes, number_of_notes); break;
 		case '5': system("cls"); note.showNotesThisMonth(notes, number_of_notes); break;
 		case '6': system("cls"); note.showNotesThisDay(notes, number_of_notes); break;
+		case '7': system("cls"); note.sortPriority(notes, number_of_notes); break;
 		case '0': system("cls"); should_continue = false; break;
 		default: continue;
 		}

@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Calendar">
+    <Position X="0.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>iAAgARJMKAAQQABAAAFOVhAAGAACQoAIAAUAIQQ0wAA=</HashCode>
+      <FileName>Calendar.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Notebook">
+    <Position X="6.25" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAEAAAgAQAAAAAAAAAAAAAAIAREAFAAEAACAICAI=</HashCode>
+      <FileName>Notebook.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ThisMoment">
+    <Position X="3.5" Y="4" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAQFBUgAQCAAAAABAAIQAQBAACAAAAgAAIAAAAAQAA=</HashCode>
+      <FileName>ThisMoment.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="10" />
+</ClassDiagram>

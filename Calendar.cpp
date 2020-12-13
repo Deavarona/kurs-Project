@@ -28,8 +28,8 @@ void Calendar::createNote()
 		std::cout << "\tДобавление срока выполения задачи." << std::endl;
 		std::cout << "ДАТА." << std::endl;
 		year = inputYear();
-		month = inputMonth();
-		day = inputDay();
+		month = inputMonth(year);
+		day = inputDay(month, year);
 		std::cout << "ВРЕМЯ." << std::endl;
 		hour = inputHour();
 		minute = inputMinute();
@@ -249,8 +249,9 @@ int Calendar::getYear()
 
 //--------------------
 
-int Calendar::inputDay()
+int Calendar::inputDay(int month, int year)
 {
+	Calendar note;
 	int day;
 	while (1)
 	{
@@ -265,7 +266,10 @@ int Calendar::inputDay()
 			{
 				throw 1;
 			}
-
+			if (day < note.m_current_day && month == note.m_current_month && year == note.m_current_year)
+			{
+				throw 5;
+			}
 			//Частная логическая проверка (в зависимости от месяца)
 			switch (m_month)
 			{
@@ -313,12 +317,18 @@ int Calendar::inputDay()
 			{
 				std::cout << m_year << " не является високосным. В феврале 28 дней." << std::endl;
 			}
+			if (logical_error == 5)
+			{
+				std::cout << "Сегодня " << note.m_current_day << " число!" << std::endl;
+				std::cout << "Пожалуйста, не создавайте заведомо просроченные задачи!" << std::endl;
+			}
 		}
 	}
 	return day;
 }
-int Calendar::inputMonth()
+int Calendar::inputMonth(int year)
 {
+	Calendar note;
 	int month;
 	while (1)
 	{
@@ -330,6 +340,10 @@ int Calendar::inputMonth()
 			{
 				throw 1;
 			}
+			if (month < note.m_current_month && year == note.m_current_year)
+			{
+				throw 2;
+			}
 			return month;
 		}
 		catch(const int logical_error)
@@ -337,6 +351,11 @@ int Calendar::inputMonth()
 			if (logical_error == 1)
 			{
 				std::cout << "В году 12 месяцев. Введите число от 1 до 12." << std::endl;
+			}
+			if (logical_error == 2)
+			{
+				std::cout << "На данный момент месяц " << defineShortNameOfMonth(m_current_month) << std::endl;
+				std::cout << "Не создавайте заведомо просроченные задачи!" << std::endl;
 			}
 		}
 	}
@@ -655,7 +674,7 @@ void Calendar::showNotesThisMonth(std::vector<Calendar>& notes, int number_of_no
 	int number_of_suitable_notes = 0;
 	Calendar new_note;
 	new_note.m_year=new_note.inputYear();
-	new_note.m_month=new_note.inputMonth();
+	new_note.m_month=new_note.inputMonth(0);
 	for (int i = 0; i < number_of_notes; i++)
 	{
 		if (notes.at(i).m_month == new_note.m_month && notes.at(i).m_year==new_note.m_year)
@@ -676,8 +695,8 @@ void Calendar::showNotesThisDay(std::vector<Calendar>& notes, int number_of_note
 	int number_of_suitable_notes = 0;
 	Calendar new_note;
 	new_note.m_year=new_note.inputYear();
-	new_note.m_month=new_note.inputMonth();
-	new_note.m_day=new_note.inputDay();
+	new_note.m_month=new_note.inputMonth(0);
+	new_note.m_day=new_note.inputDay(0,0);
 	for (int i = 0; i < number_of_notes; i++)
 	{
 		if (notes.at(i).m_day == new_note.m_day && notes.at(i).m_month == new_note.m_month && notes.at(i).m_year == new_note.m_year)
@@ -710,6 +729,21 @@ void Calendar::showNotesWithoutDeadline()
 	}
 	std::cout << "==========================" << std::endl;
 }
+void Calendar::sortPriority(std::vector<Calendar>&note, int number_of_notes)
+{
+	for (int i = 0; i < number_of_notes; i++)
+	{
+		for (int j = 0; j < number_of_notes - 1; j++)
+		{
+			if (note.at(j).m_priority < note.at(j + 1).m_priority)
+			{
+				std::swap(note.at(j).m_priority, note.at(j + 1).m_priority);
+			}
+		}
+	}
+
+	note.at(0).showAllNotes(note, number_of_notes);
+}
 
 //---------- Р Е Д А К Т И Р О В А Н И Е ----------
 
@@ -726,9 +760,13 @@ void Calendar::editNoteContent(Calendar& note)
 void Calendar::editNoteDeadline(Calendar& note)
 {
 	std::cout << "Новый дедлайн." << std::endl;
-	note.setYear(note.inputYear());
-	note.setMonth(note.inputMonth());
-	note.setDay(note.inputDay());
+	int year, month, day;
+	year = inputYear();
+	note.setYear(year);
+	month = note.inputMonth(year);
+	note.setMonth(month);
+	day = inputDay(month, year);
+	note.setDay(day);
 	note.setHour(note.inputHour());
 	note.setMinute(note.inputMinute());
 }

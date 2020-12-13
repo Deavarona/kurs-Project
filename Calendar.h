@@ -24,8 +24,8 @@ public:
 	int getYear();
 	//----------
 	std::string defineShortNameOfMonth(int month_number); //¬озвращает сокращенное название мес€ца по его номеру
-	int inputDay(); //¬вод дн€ срока выполнени€ задачи
-	int inputMonth(); //¬вод мес€ца срока выполнени€ задачи
+	int inputDay(int month, int year); //¬вод дн€ срока выполнени€ задачи
+	int inputMonth(int year); //¬вод мес€ца срока выполнени€ задачи
 	int inputYear(); //¬вод года срока выполнени€ задачи
 
 	//-----¬–≈ћя-----
@@ -61,6 +61,7 @@ public:
 	void showNotesThisYear(std::vector<Calendar>& note, int number_of_notes);
 	void showNotesThisMonth(std::vector<Calendar>& note, int number_of_notes);
 	void showNotesThisDay(std::vector<Calendar>& note, int number_of_notes);
+	void sortPriority(std::vector<Calendar>& note, int number_of_notes);
 
 	void editNoteName(Calendar&note);
 	void editNoteContent(Calendar& note);
