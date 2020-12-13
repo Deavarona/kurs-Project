@@ -10,12 +10,13 @@ void setSettings(); //Начальные настройки
 int inputIntegerNumber(); //Ввод целого числа
 bool isActionConfirmed(std::string message); //Подтверждение действия
 
-void showMainMenuInterface();
-void mainMenu();
-void addNote();
-void menuOfShowingTasks();
-void showMenuOfShowingTasksInterface();
-void editNote();
-void showEditionMenu();
+//---------- М Е Н Ю ----------
+
+void showMainMenuInterface(); //Интерфейс главного меню
+void mainMenu(); //Главное меню
+void menuShowingTasks(); //Меню вывода задач на консоль
+void showMenuShowingTasksInterface(); //Интерфейс меню вывода задач
+void menuEditionTasks(); //Меню редактировния задач
+void showEditionMenuInterface(); //Интерфейс меню редактирования задач
 
 #endif

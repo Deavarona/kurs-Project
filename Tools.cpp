@@ -52,26 +52,40 @@ void showMainMenuInterface()
 {
 	std::cout << LINE_MENU << std::endl;
 	std::cout << "\t1. Добавить задачу" << std::endl;
-	std::cout << "\t2. Показать все задачи" << std::endl;
+	std::cout << "\t2. Показать задачи" << std::endl;
 	std::cout << "\t3. Редактировать задачу" << std::endl;
+	std::cout << LINE_MENU << std::endl;
+	std::cout << "\t4. Узнать задачи на сегодня" << std::endl;
+	std::cout << "\t5. Просмотреть заметки" << std::endl;
+	std::cout << "\t6. Открыть календарь" << std::endl;
 	std::cout << "\t0 - Выход" << std::endl;
 	std::cout << LINE_MENU << std::endl;
 }
 void mainMenu()
 {
 	Calendar calendar;
-	calendar.showCalendarOnlyMonth();
+	calendar.showCalendarCurrentMonth();
+	calendar.whatTheDayToday();
 	showMainMenuInterface();
 	bool should_continue = true;
 	while (should_continue)
 	{
 		switch (_getch())
 		{
-		case '1': system("cls"); addNote(); calendar.showCalendarOnlyMonth(); showMainMenuInterface(); break;
-		case '2': system("cls"); menuOfShowingTasks(); calendar.showCalendarOnlyMonth(); showMainMenuInterface(); break;
-		case '3': system("cls"); editNote(); calendar.showCalendarOnlyMonth(); showMainMenuInterface(); break;
-		case '0': if (isActionConfirmed(MESSAGE_EXIT)) should_continue = false; 
-				else { system("cls"); calendar.showCalendarOnlyMonth(); showMainMenuInterface(); } break;
+		case '1': system("cls"); addNote(); break;
+		case '2': system("cls"); menuShowingTasks(); break;
+		case '3': system("cls"); menuEditionTasks(); break;
+		case '4': system("cls"); calendar.todayTasks(); break;
+		case '5': system("cls"); calendar.showNotesWithoutDeadline(); break;
+		case '6': system("cls"); calendar.createCalendarYear(); break;
+		case '0': if (isActionConfirmed(MESSAGE_EXIT)) should_continue = false; break;
+		default:continue;
+		}
+		if (should_continue)
+		{
+			calendar.showCalendarCurrentMonth();
+			calendar.whatTheDayToday();
+			showMainMenuInterface();
 		}
 	}
 }
@@ -81,7 +95,7 @@ void mainMenu()
 
 //---------- В Ы В О Д ----------
 
-void showMenuOfShowingTasksInterface()
+void showMenuShowingTasksInterface()
 {
 	std::cout << LINE_MENU << std::endl;
 	std::cout << "\t1. Показать все задачи." << std::endl;
@@ -93,33 +107,38 @@ void showMenuOfShowingTasksInterface()
 	std::cout << "\t0 - Вернуться назад." << std::endl;
 	std::cout << LINE_MENU << std::endl;
 }
-void menuOfShowingTasks()
+void menuShowingTasks()
 {
 	Calendar note;
 	int number_of_notes = defineNumberOfNotesInFile(DATABASE_FILE_NAME);
 	std::vector <Calendar> notes(number_of_notes);
 	note.readAllNotesFromFile(DATABASE_FILE_NAME, notes, number_of_notes);
 
-	showMenuOfShowingTasksInterface();
+	showMenuShowingTasksInterface();
 	bool should_continue = true;
 	while (should_continue)
 	{
 		switch (_getch())
 		{
-		case '1': system("cls"); note.showAllNotes(notes, number_of_notes); showMenuOfShowingTasksInterface(); break;
-		case '2': system("cls"); note.showNotesWithDeadline(notes, number_of_notes); showMenuOfShowingTasksInterface(); break;
-		case '3': system("cls"); note.showUnfulfilledNotes(notes, number_of_notes); showMenuOfShowingTasksInterface(); break;
-		case '4': system("cls"); note.showNotesThisYear(notes, number_of_notes); showMenuOfShowingTasksInterface(); break;
-		case '5': system("cls"); note.showNotesThisMonth(notes, number_of_notes); showMenuOfShowingTasksInterface(); break;
-		case '6': system("cls"); note.showNotesThisDay(notes, number_of_notes); showMenuOfShowingTasksInterface(); break;
+		case '1': system("cls"); note.showAllNotes(notes, number_of_notes); break;
+		case '2': system("cls"); note.showNotesWithDeadline(notes, number_of_notes); break;
+		case '3': system("cls"); note.showUnfulfilledNotes(notes, number_of_notes); break;
+		case '4': system("cls"); note.showNotesThisYear(notes, number_of_notes); break;
+		case '5': system("cls"); note.showNotesThisMonth(notes, number_of_notes); break;
+		case '6': system("cls"); note.showNotesThisDay(notes, number_of_notes); break;
 		case '0': system("cls"); should_continue = false; break;
+		default: continue;
+		}
+		if (should_continue)
+		{
+			showMenuShowingTasksInterface();
 		}
 	}
 }
 
 //---------- Р Е Д А К Т И Р О В А Н И Е ----------
 
-void showEditionMenu()
+void showEditionMenuInterface()
 {
 	std::cout << LINE_MENU << std::endl;
 	std::cout << "\t1. Редактировать имя заметки." << std::endl;
@@ -131,7 +150,7 @@ void showEditionMenu()
 	std::cout << "\t0 - Вернуться назад." << std::endl;
 	std::cout << LINE_MENU << std::endl;
 }
-void editNote()
+void menuEditionTasks()
 {
 	Calendar note;
 	int number_of_notes = defineNumberOfNotesInFile(DATABASE_FILE_NAME);
@@ -142,7 +161,7 @@ void editNote()
 
 	system("cls");
 	notes.at(note_number).showNote(notes.at(note_number));
-	showEditionMenu();
+	showEditionMenuInterface();
 	bool should_continue = true;
 
 	while (should_continue)
@@ -175,7 +194,7 @@ void editNote()
 		if (should_continue)
 		{
 			notes.at(note_number).showNote(notes.at(note_number));
-			showEditionMenu();
+			showEditionMenuInterface();
 		}
 	}
 }

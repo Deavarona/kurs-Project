@@ -18,19 +18,19 @@ protected:
 	std::string month_name[12] = { "Январь", "Февраль", "Март", "Апрель", "Май", "Июнь", "Июль", "Август", 
 		"Сентябрь", "Октябрь", "Ноябрь", "Декабрь" };
 	std::string day_week_name[7] = { "ПН", "ВТ", "СР", "ЧТ", "ПТ", "СБ", "ВС" };
+
 public:
 	ThisMoment(); //Конструктор
+
 	int getCurrentYear();
 	int getCurrentMonth();
 	int getCurrentDay();
-	void defineThisMoment(); //Определить текущие дату и время
-	int defineMaxDayInThatMonth(int month, int year);
-	//void showCalendarThisYear();
-	void showCalendarThisMonth(int month, int year);
-	//void showCalendarThisWeek();
-	//void showTheDayToday();
-	void showCalendarOnlyMonth();
-	//void showCalendarFullYear(int year);
+
+	void defineCurrentDayTime(); //Определить текущие дату и время
+	int defineMaxDayInThatMonth(int month, int year); //Определить максимальный день месяца
+	void createCalendarMonth(int month, int year);
+	void showCalendarCurrentMonth();
+	void createCalendarYear();
 };
 
 #endif

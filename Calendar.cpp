@@ -19,7 +19,7 @@ void Calendar::createNote()
 
 	std::cout << LINE_MENU << std::endl;
 	std::cout << "\tДобавить дедлайн?" << std::endl;
-	std::cout << "\t1: Добавить." << std::endl;
+	std::cout << "\t1 - Добавить." << std::endl;
 	std::cout << "\tЛюбой иной символ: Не добавлять." << std::endl;
 	std::cout << LINE_MENU << std::endl;
 
@@ -49,12 +49,12 @@ void Calendar::createNote()
 	setHour(hour);
 	setMinute(minute);
 	setPriority(calculatePriority());
-	std::cout << "Pr: " << m_priority << std::endl;
 }
 int Calendar::calculatePriority()
 {
+	std::cout << "Расчет приоритета." << std::endl;
+
 	int importance = 1;
-	std::cout << std::endl;
 	std::cout << "-------" << std::endl;
 	std::cout << "Задача важная?" << std::endl;
 	std::cout << "-------" << std::endl;
@@ -64,7 +64,6 @@ int Calendar::calculatePriority()
 	{
 		importance = 2;
 	}
-	std::cout << std::endl;
 
 	int complexity = 1;
 	std::cout << "-------" << std::endl;
@@ -91,6 +90,36 @@ int Calendar::calculatePriority()
 	priority=trunc(priority / 3);
 	return priority;
 }
+double Calendar::timeBeforeDeadline()
+{
+	time_t settime = time(NULL);
+	tm mysettime;
+	localtime_s(&mysettime, &settime);
+	mysettime.tm_year = m_year;
+	mysettime.tm_mon = m_month;
+	mysettime.tm_mday = m_day;
+	mysettime.tm_hour = m_hour;
+	mysettime.tm_min = m_minute;
+	double seconds_left = difftime(mktime(&right_now_struct), mktime(&mysettime));
+	return seconds_left;
+}
+void addNote()
+{
+	Calendar note;
+	note.createNote();
+	system("cls");
+	note.showNote(note);
+	if (isActionConfirmed(MESSAGE_SAVE))
+	{
+		note.saveNoteInFile(DATABASE_FILE_NAME);
+		std::cout << "Успешно сохранено!" << std::endl;
+	}
+	Sleep(1000);
+	system("cls");
+}
+
+//--------------------
+
 int Calendar::chooseTheNoteNumber(std::vector <Calendar>& notes, int number_of_notes)
 {
 	Calendar note;
@@ -123,33 +152,67 @@ int Calendar::chooseTheNoteNumber(std::vector <Calendar>& notes, int number_of_n
 	}
 	return note_number;
 }
-void addNote()
+
+//-------------------
+
+void Calendar::todayTasks()
 {
 	Calendar note;
-	note.createNote();
-	system("cls");
-	note.showNote(note);
-	if (isActionConfirmed(MESSAGE_SAVE))
+	int number_of_notes = defineNumberOfNotesInFile(DATABASE_FILE_NAME);
+	std::vector <Calendar> notes(number_of_notes);
+	note.readAllNotesFromFile(DATABASE_FILE_NAME, notes, number_of_notes);
+
+	int year = note.getCurrentYear();
+	int month = note.getCurrentMonth();
+	int day = note.getCurrentDay();
+
+	std::cout << std::endl;
+	std::cout << "==========================" << std::endl;
+	std::cout << "Ваши задачи на сегодня: " << std::endl;
+	std::cout << "==========================" << std::endl;
+	int number_of_tasks = 0;
+	for (int i = 0; i < number_of_notes; i++)
 	{
-		note.saveNoteInFile(DATABASE_FILE_NAME);
-		std::cout << "Успешно сохранено!" << std::endl;
+		if (notes.at(i).m_year == year && notes.at(i).m_month == month && notes.at(i).m_day == day)
+		{
+			notes.at(i).showNote(notes.at(i));
+			number_of_tasks++;
+		}
 	}
-	Sleep(1000);
-	system("cls");
+	if (number_of_tasks == 0)
+	{
+		std::cout << "Задач на сегодня нет!" << std::endl;
+	}
+	std::cout << "==========================" << std::endl;
+	std::cout << std::endl;
 }
-double Calendar::timeBeforeDeadline()
+void Calendar::whatTheDayToday()
 {
-	time_t settime = time(NULL);
-	tm mysettime;
-	localtime_s(&mysettime, &settime);
-	mysettime.tm_year = m_year;
-	mysettime.tm_mon = m_month;
-	mysettime.tm_mday = m_day;
-	mysettime.tm_hour = m_hour;
-	mysettime.tm_min = m_minute;
-	//double seconds_left = mktime(&right_now_struct) - mktime(&mysettime);
-	double seconds_left = difftime(mktime(&right_now_struct), mktime(&mysettime));
-	return seconds_left;
+	Calendar note;
+	std::cout << "==========================" << std::endl;
+	std::cout << "Сегодня " << note.getCurrentDay() << " " << note.defineShortNameOfMonth(getCurrentMonth()) << " "
+		<< getCurrentYear() << " года." << std::endl;
+	std::cout << "==========================" << std::endl;
+}
+std::string Calendar::defineShortNameOfMonth(int month_number)
+{
+	std::string month;
+	switch (month_number)
+	{
+	case 1: month = " янв."; break;
+	case 2: month = " фев."; break;
+	case 3: month = " март."; break;
+	case 4: month = " апр."; break;
+	case 5: month = " май."; break;
+	case 6: month = " июн."; break;
+	case 7: month = " июл."; break;
+	case 8: month = " авг."; break;
+	case 9: month = " сент."; break;
+	case 10: month = " окт."; break;
+	case 11: month = " ноя."; break;
+	case 12: month = " дек."; break;
+	}
+	return month;
 }
 
 //---------- Д А Т А ----------
@@ -182,29 +245,6 @@ int Calendar::getMonth()
 int Calendar::getYear()
 {
 	return m_year;
-}
-
-//--------------------
-
-std::string Calendar::defineNameOfMonth(int month_number)
-{
-	std::string month;
-	switch (month_number)
-	{
-	case 1: month = " янв."; break;
-	case 2: month = " фев."; break;
-	case 3: month = " март."; break;
-	case 4: month = " апр."; break;
-	case 5: month = " май."; break;
-	case 6: month = " июн."; break;
-	case 7: month = " июл."; break;
-	case 8: month = " авг."; break;
-	case 9: month = " сент."; break;
-	case 10: month = " окт."; break;
-	case 11: month = " ноя."; break;
-	case 12: month = " дек."; break;
-	}
-	return month;
 }
 
 //--------------------
@@ -263,7 +303,7 @@ int Calendar::inputDay()
 			}
 			if (logical_error == 2)
 			{
-				std::cout << "В месяце" << defineNameOfMonth(m_current_month) << " 30 дней!" << std::endl;
+				std::cout << "В месяце" << defineShortNameOfMonth(m_current_month) << " 30 дней!" << std::endl;
 			}
 			if (logical_error == 3)
 			{
@@ -652,6 +692,23 @@ void Calendar::showNotesThisDay(std::vector<Calendar>& notes, int number_of_note
 	{
 		std::cout << "Подходящих задач не найдено." << std::endl;
 	}
+}
+void Calendar::showNotesWithoutDeadline()
+{
+	int number_of_notes = defineNumberOfNotesInFile(DATABASE_FILE_NAME);
+	std::vector<Calendar> notes(number_of_notes);
+	notes.at(0).readAllNotesFromFile(DATABASE_FILE_NAME, notes, number_of_notes);
+
+	std::cout << "==========================" << std::endl;
+	std::cout << "Ваши заметки без дедлайна: " << std::endl;
+	for (int i = 0; i < number_of_notes; i++)
+	{
+		if (notes.at(i).m_year == DEFAULT_VALUE)
+		{
+			showNote(notes.at(i));
+		}
+	}
+	std::cout << "==========================" << std::endl;
 }
 
 //---------- Р Е Д А К Т И Р О В А Н И Е ----------

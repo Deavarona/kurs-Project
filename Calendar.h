@@ -2,8 +2,8 @@
 #define CALENDAR_H
 #include <conio.h>
 #include "ThisMoment.h"
-#include "Tools.h"
 #include "File.h"
+#include "Tools.h"
 
 class Calendar: public ThisMoment
 {
@@ -23,7 +23,7 @@ public:
 	int getMonth();
 	int getYear();
 	//----------
-	std::string defineNameOfMonth(int month_number); //¬озвращает сокращенное название мес€ца по его номеру
+	std::string defineShortNameOfMonth(int month_number); //¬озвращает сокращенное название мес€ца по его номеру
 	int inputDay(); //¬вод дн€ срока выполнени€ задачи
 	int inputMonth(); //¬вод мес€ца срока выполнени€ задачи
 	int inputYear(); //¬вод года срока выполнени€ задачи
@@ -48,6 +48,7 @@ public:
 	int calculatePriority();
 	int chooseTheNoteNumber(std::vector <Calendar>& note, int number_of_notes);
 	double timeBeforeDeadline();
+	void showNotesWithoutDeadline();
 
 	void saveNoteInFile(std::string name_of_file); //«апись задачи в файл
 	void readAllNotesFromFile(std::string name_of_file, std::vector <Calendar>&notes, int number_of_notes); //—читывание всех задач из файла
@@ -67,6 +68,9 @@ public:
 	void editNoteStatus(Calendar& note);
 	void editNotePriority(Calendar& note);
 	void deleteNote(std::vector<Calendar>& note, int note_number, int&number_of_notes);
+
+	void whatTheDayToday();
+	void todayTasks();
 };
 
 void addNote();

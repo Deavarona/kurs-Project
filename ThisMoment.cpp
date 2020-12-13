@@ -2,9 +2,9 @@
 
 ThisMoment::ThisMoment()
 {
-	defineThisMoment();
+	defineCurrentDayTime();
 }
-void ThisMoment::defineThisMoment()
+void ThisMoment::defineCurrentDayTime()
 {
 	right_now = time(NULL);
 	right_now_struct;
@@ -17,6 +17,8 @@ void ThisMoment::defineThisMoment()
 	m_current_minute = right_now_struct.tm_min;
 	m_current_hour = right_now_struct.tm_hour;
 }
+
+//---------- Г Е Т Т Е Р Ы ----------
 int ThisMoment::getCurrentYear()
 {
 	return m_current_year;
@@ -29,6 +31,9 @@ int ThisMoment::getCurrentDay()
 {
 	return m_current_day;
 }
+
+//--------------------
+
 int ThisMoment::defineMaxDayInThatMonth(int month, int year)
 {
 	bool is_year_leap=false;
@@ -63,7 +68,10 @@ int ThisMoment::defineMaxDayInThatMonth(int month, int year)
 	}
 	}
 }
-void ThisMoment::showCalendarThisMonth(int month, int year)
+
+//--------------------
+
+void ThisMoment::createCalendarMonth(int month, int year)
 {
 	int max_day = defineMaxDayInThatMonth(month, year);
 	month -= 1;
@@ -95,7 +103,7 @@ void ThisMoment::showCalendarThisMonth(int month, int year)
 		{
 			if (mytimestruct.tm_wday == 0)
 			{
-				for (int i = 0; i <= 6; i++)
+				for (int i = 0; i < 6; i++)
 				{
 					std::cout << std::setw(3) << " ";
 				}
@@ -116,7 +124,50 @@ void ThisMoment::showCalendarThisMonth(int month, int year)
 	std::cout << std::endl;
 	std::cout << "~~~~~~~~~~~~~~~~~~~~" << std::endl;
 }
-void ThisMoment::showCalendarOnlyMonth()
+void ThisMoment::showCalendarCurrentMonth()
 {
-	showCalendarThisMonth(m_current_month, m_current_year);
+	createCalendarMonth(m_current_month, m_current_year);
+}
+void ThisMoment::createCalendarYear()
+{
+	while (1)
+	{
+		try
+		{
+			std::cout << "Календарь на год: ";
+			int year;
+			while (2)
+			{
+				std::cin >> year;
+				if (std::cin.get() != '\n')
+				{
+					std::cin.clear();
+					std::cin.ignore(256, '\n');
+					std::cout << "Введите число!" << std::endl;
+					std::cout << "Ввод: ";
+				}
+				else
+				{
+					break;
+				}
+			}
+			if (year < 1970)
+			{
+				throw 1;
+			}
+			for (int i = 1; i <= 12; i++)
+			{
+				createCalendarMonth(i, year);
+			}
+			std::cout << std::endl;
+			break;
+		}
+		catch (const int logical_error)
+		{
+			if (logical_error == 1)
+			{
+				std::cout << "Минимальный год - 1970" << std::endl;
+			}
+		}
+	}
 }
