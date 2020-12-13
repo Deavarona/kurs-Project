@@ -59,16 +59,19 @@ void showMainMenuInterface()
 }
 void mainMenu()
 {
+	Calendar calendar;
+	calendar.showCalendarOnlyMonth();
 	showMainMenuInterface();
 	bool should_continue = true;
 	while (should_continue)
 	{
 		switch (_getch())
 		{
-		case '1': system("cls"); addNote(); showMainMenuInterface(); break;
-		case '2': system("cls"); menuOfShowingTasks(); showMainMenuInterface(); break;
-		case '3': system("cls"); editNote(); showMainMenuInterface(); break;
-		case '0': if(isActionConfirmed(MESSAGE_EXIT)) should_continue = false; break;
+		case '1': system("cls"); addNote(); calendar.showCalendarOnlyMonth(); showMainMenuInterface(); break;
+		case '2': system("cls"); menuOfShowingTasks(); calendar.showCalendarOnlyMonth(); showMainMenuInterface(); break;
+		case '3': system("cls"); editNote(); calendar.showCalendarOnlyMonth(); showMainMenuInterface(); break;
+		case '0': if (isActionConfirmed(MESSAGE_EXIT)) should_continue = false; 
+				else { system("cls"); calendar.showCalendarOnlyMonth(); showMainMenuInterface(); } break;
 		}
 	}
 }
