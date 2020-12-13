@@ -78,7 +78,7 @@ void mainMenu()
 		case '4': system("cls"); calendar.todayTasks(); break;
 		case '5': system("cls"); calendar.showNotesWithoutDeadline(); break;
 		case '6': system("cls"); calendar.createCalendarYear(); break;
-		case '0': if (isActionConfirmed(MESSAGE_EXIT)) should_continue = false; break;
+		case '0': if (isActionConfirmed(MESSAGE_EXIT)) should_continue = false; else system("cls"); break;
 		default:continue;
 		}
 		if (should_continue)
