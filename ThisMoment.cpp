@@ -155,6 +155,10 @@ void ThisMoment::createCalendarYear()
 			{
 				throw 1;
 			}
+			if (year > m_current_year + 100)
+			{
+				throw 2;
+			}
 			for (int i = 1; i <= 12; i++)
 			{
 				createCalendarMonth(i, year);
@@ -167,6 +171,10 @@ void ThisMoment::createCalendarYear()
 			if (logical_error == 1)
 			{
 				std::cout << "Минимальный год - 1970" << std::endl;
+			}
+			if (logical_error == 2)
+			{
+				std::cout << "Не заглядывайте так далеко..." << std::endl;
 			}
 		}
 	}

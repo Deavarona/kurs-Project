@@ -374,6 +374,10 @@ int Calendar::inputYear()
 			{
 				throw 1;
 			}
+			if (year > m_current_year + 100)
+			{
+				throw 2;
+			}
 			return year;
 		}
 		catch (const int logical_error)
@@ -382,6 +386,10 @@ int Calendar::inputYear()
 			{
 				std::cout << "На дворе " << m_current_year << " год!" << std::endl;
 				std::cout << "Пожалуйста, не создавайте заведомо просроченные задачи." << std::endl;
+			}
+			if (logical_error == 2)
+			{
+				std::cout << "Не заглядывайте так далеко :)" << std::endl;
 			}
 		}
 	}
